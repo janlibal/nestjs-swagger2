@@ -1,23 +1,24 @@
-import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty } from "@nestjs/swagger";
+import { IsNotEmpty } from "class-validator";
 
 export class EmployeeDTO {
   
-  @ApiProperty({
-    example: '/api/v1/auth/email/login'
-  })
-  path: string;
-    
+  @ApiResponseProperty()
+  id?: number;
+  
   @ApiProperty({
     description: 'The first name of a employee',
     minLength: 3,
-    default: 'Amit',
+    default: 'Joe',
   })
+  @IsNotEmpty({ message: 'Firstname cannot be empty' })
   firstName: string;
 
   @ApiProperty({
     description: 'The first name of a employee',
     minLength: 2,
-    default: 'Gal',
+    default: 'Doe',
   })
+  @IsNotEmpty({ message: 'Lastname cannot be empty' })
   lastName: string;
 }

@@ -5,7 +5,7 @@ import { isUUID } from 'class-validator'
 export class User {
   @ApiProperty({
     type: isUUID,
-    description: 'Id is DB generated'
+    description: 'Id is DB generated',
   })
   @Exclude()
   id?: string //= uuid() //number | string
@@ -40,6 +40,4 @@ export class User {
   })
   @Expose() //({ groups: ['me', 'admin'] })
   provider: string
-
-  
 }
