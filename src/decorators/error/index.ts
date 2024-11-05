@@ -1,6 +1,6 @@
-import { HttpStatus } from '@nestjs/common';
-import { ApiResponseOptions } from '@nestjs/swagger';
-import { ApiErrorDecorator } from 'src/common/decorator/error/error.decorator';
+import { HttpStatus } from '@nestjs/common'
+import { ApiResponseOptions } from '@nestjs/swagger'
+import { ApiErrorDecorator } from 'src/common/decorator/error/error.decorator'
 
 export function BadRequest(
   message: string,
@@ -14,12 +14,12 @@ export function BadRequest(
     description,
     path,
     options,
-  );
+  )
 }
 export function InternalError(
   message: string,
   description?: string,
-  path?:string,
+  path?: string,
   options?: ApiResponseOptions,
 ) {
   return ApiErrorDecorator(
@@ -28,5 +28,5 @@ export function InternalError(
     description,
     path,
     options,
-  );
+  )
 }

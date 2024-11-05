@@ -1,7 +1,6 @@
 import { ValidationPipeOptions } from '@nestjs/common'
 import BadRequest from 'src/exceptionts/bad.request.exception'
 
-
 const validationOptions: ValidationPipeOptions = {
   transform: true,
   exceptionFactory: (errors) => {
