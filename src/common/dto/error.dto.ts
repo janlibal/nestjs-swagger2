@@ -2,9 +2,6 @@ import { HttpStatus } from '@nestjs/common'
 import { ApiProperty } from '@nestjs/swagger'
 
 export class ErrorDTO {
-  @ApiProperty({ default: '/api/v1/auth/email/login' })
-  path: string
-
   @ApiProperty({ default: 'Internal Server Error' })
   message: string
 

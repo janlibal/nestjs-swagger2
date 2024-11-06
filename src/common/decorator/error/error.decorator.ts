@@ -2,21 +2,14 @@ import { applyDecorators, HttpStatus } from '@nestjs/common'
 import { ApiResponse, ApiResponseOptions, getSchemaPath } from '@nestjs/swagger'
 import { ErrorDTO } from 'src/common/dto/error.dto'
 
-export function ApiErrorDecorator(
-  statusCode: HttpStatus,
-  message: string,
-  path: string,
-  description?: string,
-  options?: ApiResponseOptions,
-) {
+export function ApiErrorDecorator(statusCode: HttpStatus,message: string,description?: string,options?: ApiResponseOptions,) {
   return applyDecorators(
     ApiResponse({
-      ...options,
+    ...options,
       status: statusCode,
       description: description,
       schema: {
         default: {
-          path: path,
           message: message,
           status_code: statusCode,
           date: new Date().toISOString(),

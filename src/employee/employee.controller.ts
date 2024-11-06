@@ -17,12 +17,8 @@ export class EmployeeController {
     status: 201,
     type: EmployeeDTO,
   })
-  @InternalError(
-    'Internal Server Error',
-    'Internal Server Error Description',
-    '/api',
-  )
-  @BadRequest('Bad Request Working', 'Bad Request Description', '/api')
+  @InternalError('Internal Server Error', 'Internal Server Error Description')
+  @BadRequest('Bad Request Working', 'Bad Request Description')
   createEmployee(@Body() employeeDto: EmployeeDTO) {
     return {
       firstName: employeeDto.firstName,
