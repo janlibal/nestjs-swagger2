@@ -8,7 +8,8 @@ import { ErrorDTO } from 'src/common/dto/error.dto';
 
 export function ApiErrorDecorator(
   statusCode: HttpStatus,
-  message: string,
+  title: string,
+  path: string,
   description?: string,
   options?: ApiResponseOptions,
 ) {
@@ -19,9 +20,12 @@ export function ApiErrorDecorator(
       description: description,
       schema: {
         default: {
-          message: message,
-          status_code: statusCode,
-          date: new Date().toISOString(),
+          status: false,
+          statusCode: statusCode,
+          timestamp: new Date().toISOString(),
+          path: path,
+          title: title,
+          detail: 'Something went wrong'
         },
         type: getSchemaPath(ErrorDTO),
       },

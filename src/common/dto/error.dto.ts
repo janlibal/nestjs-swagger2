@@ -6,8 +6,8 @@ export class ErrorDTO {
   message: string;
 
   @ApiProperty({ enum: HttpStatus, default: HttpStatus.INTERNAL_SERVER_ERROR })
-  status_code: HttpStatus;
+  statusCode: HttpStatus;
 
-  @ApiProperty({ default: new Date().toISOString() })
-  date: Date;
+  @ApiProperty()
+  path: string;
 }
