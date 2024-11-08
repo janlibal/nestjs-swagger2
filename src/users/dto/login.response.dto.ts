@@ -5,13 +5,13 @@ import { User } from '../domain/user.domain'
 
 class ResultDto {
     @ApiProperty({
-      description: 'Token',
+      description: 'Issued token',
     })
     @Expose()
     token: string
     
     @ApiProperty({
-      description: 'Refresh Token',
+      description: 'Issued refresh token',
     })
     @Expose()
     refreshToken: string
@@ -39,18 +39,18 @@ export class LoginResponseDto {
   status: boolean
 
   @ApiProperty({
-    description: 'API path',
-    default: '/api/v1/auth/email/login'
-  })
-  @Expose()
-  path: string
-
-  @ApiProperty({
     description: 'Status code',
     default: '201'
   })
   @Expose()
   statusCode: string
+
+  @ApiProperty({
+    description: 'API path',
+    default: '/api/v1/auth/email/login'
+  })
+  @Expose()
+  path: string
 
   @ApiProperty({
     type: ResultDto

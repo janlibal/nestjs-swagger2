@@ -8,12 +8,15 @@ import { Status } from 'src/statuses/domain/status.domain'
 export class User {
   @ApiProperty({
     type: isUUID,
+    description: 'Id is UUID',
+    example: '550e8400-e29b-41d4-a716-44665544000'
   })
   @Exclude()
   id?: string //= uuid() //number | string
 
   @ApiProperty({
     type: String,
+    description: 'User email',
     example: 'joe.doe@example.com',
   })
   @Expose()
@@ -24,6 +27,7 @@ export class User {
 
   @ApiProperty({
     type: String,
+    description: 'User firtname',
     example: 'Joe',
   })
   @Expose()
@@ -31,6 +35,7 @@ export class User {
 
   @ApiProperty({
     type: String,
+    description: 'User lastname',
     example: 'Doe',
   })
   @Expose()
@@ -38,7 +43,8 @@ export class User {
 
   @ApiProperty({
     type: String,
-    example: 'email',
+    description: 'Provider',
+    example: 'email, apple, facebook, twitter',
   })
   @Expose() //({ groups: ['me', 'admin'] })
   provider: string
