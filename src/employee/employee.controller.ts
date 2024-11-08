@@ -14,10 +14,10 @@ export class EmployeeController {
     description: 'Stores an employee with firstname and lastname',
   })
   @ApiResponse({ status: 201, type: EmployeeDTO })
-  @ApiErrorDecorator(HttpStatus.BAD_REQUEST, 'Bad Request', '/employee/new')
-  @ApiErrorDecorator(HttpStatus.CONFLICT, 'Already Exists', '/employee/new')
-  @ApiErrorDecorator(HttpStatus.NOT_FOUND, 'Not Found', '/employee/new')
-  @ApiErrorDecorator(HttpStatus.INTERNAL_SERVER_ERROR, 'Internal Server', '/employee/new')
+  @ApiErrorDecorator(HttpStatus.BAD_REQUEST, 'Bad Request', '/employee/new', 'Something went wrong')
+  @ApiErrorDecorator(HttpStatus.CONFLICT, 'Already Exists', '/employee/new', 'Resource already exists')
+  @ApiErrorDecorator(HttpStatus.NOT_FOUND, 'Not Found', '/employee/new', 'Resource not found')
+  @ApiErrorDecorator(HttpStatus.INTERNAL_SERVER_ERROR, 'Internal Server', '/employee/new', 'Cricial server error')
   create(@Body() employeeDto: EmployeeDTO) {
     return {...employeeDto,id:Date.now()};
   }

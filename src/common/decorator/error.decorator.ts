@@ -10,6 +10,7 @@ export function ApiErrorDecorator(
   statusCode: HttpStatus,
   title: string,
   path: string,
+  detail: string,
   description?: string,
   options?: ApiResponseOptions,
 ) {
@@ -25,7 +26,7 @@ export function ApiErrorDecorator(
           timestamp: new Date().toISOString(),
           path: path,
           title: title,
-          detail: 'Something went wrong'
+          detail: detail
         },
         type: getSchemaPath(ErrorDTO),
       },
