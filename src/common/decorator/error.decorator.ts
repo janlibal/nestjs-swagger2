@@ -11,7 +11,6 @@ export function ApiErrorDecorator(
   title: string,
   path: string,
   detail: string,
-  errors?: [],
   description?: string,
   options?: ApiResponseOptions,
 ) {
@@ -28,7 +27,6 @@ export function ApiErrorDecorator(
           path: path,
           title: title,
           detail: detail,
-          errors: errors
         },
         type: getSchemaPath(ErrorDTO),
       },

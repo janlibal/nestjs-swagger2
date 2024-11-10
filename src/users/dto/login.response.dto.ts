@@ -1,8 +1,8 @@
-import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger'
+import { ApiProperty, ApiResponseProperty, ApiSchema } from '@nestjs/swagger'
 import { Expose, Type } from 'class-transformer'
 import { User } from '../domain/user.domain'
 
-
+@ApiSchema({name: 'Received login data'})
 class ResultDto {
     @ApiProperty({
       description: 'Issued token',
@@ -30,7 +30,10 @@ class ResultDto {
     user: User
 }
 
+@ApiSchema({name: 'Login Reponse'})
 export class LoginResponseDto {
+  //static name = 'Login REsponse'
+
   @ApiProperty({
     description: 'Response satus',
     default: true

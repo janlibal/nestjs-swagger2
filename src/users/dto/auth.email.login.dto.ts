@@ -1,8 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty, ApiSchema } from '@nestjs/swagger'
 import { IsEmail, IsNotEmpty, IsString, Matches } from 'class-validator'
 import { Transform } from 'class-transformer'
 import { lowerCaseTransformer } from 'src/utils/transformers/lower.case.transformer'
 
+@ApiSchema({name: 'Login prerequisites '})
 export class AuthEmailLoginDto {
   @ApiProperty({ example: 'joe.doe@joedoe.com', default: 'joe.doe@joedoe.com', type: String })
   @Transform(lowerCaseTransformer)

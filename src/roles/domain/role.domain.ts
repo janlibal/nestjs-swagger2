@@ -1,7 +1,8 @@
-import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger'
+import { ApiProperty, ApiResponseProperty, ApiSchema } from '@nestjs/swagger'
 import { Expose } from 'class-transformer'
 import { Allow } from 'class-validator'
 
+@ApiSchema({name: 'User role'})
 export class Role {
   @Allow()
   @ApiProperty({

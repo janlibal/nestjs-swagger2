@@ -1,9 +1,9 @@
-import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger'
+import { ApiProperty, ApiResponseProperty, ApiSchema } from '@nestjs/swagger'
 import { Expose } from 'class-transformer'
 import { Allow, isUUID } from 'class-validator'
 
 
-
+@ApiSchema({name: 'User status'})
 export class Status {
   @Allow()
   @ApiProperty({
