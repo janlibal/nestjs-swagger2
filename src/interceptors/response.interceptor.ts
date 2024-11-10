@@ -51,6 +51,7 @@ export class ResponseInterceptor implements NestInterceptor {
       status: true,
       path: request.url,
       statusCode,
+      timestamp: new Date().toISOString(),
       result: res,
     }
   }

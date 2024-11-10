@@ -2,7 +2,7 @@ import { Body, Controller, HttpStatus, Post } from '@nestjs/common'
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { EmployeeDTO } from './dto/employee.dto';
 import { ErrorDTO } from 'src/common/dto/error.dto';
-import { ApiErrorDecorator } from 'src/common/decorator/error.decorator';
+import { ApiErrorDecorator } from 'src/common/decorator/api.error.decorator';
 import { BadRequestError, ConflictError, InternalServer, NotFoundError } from 'src/decorators/all.errors.decorators';
 
 

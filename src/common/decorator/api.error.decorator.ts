@@ -22,9 +22,9 @@ export function ApiErrorDecorator(
       schema: {
         default: {
           status: false,
+          path: path,
           statusCode: statusCode,
           timestamp: new Date().toISOString(),
-          path: path,
           title: title,
           detail: detail,
         },

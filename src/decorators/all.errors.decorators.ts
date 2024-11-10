@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
 import { ApiResponseOptions } from '@nestjs/swagger';
-import { ApiErrorDecorator } from 'src/common/decorator/error.decorator';
+import { ApiErrorDecorator } from 'src/common/decorator/api.error.decorator';
 
 
 export function BadRequestError(title: string,path: string,detail: string, description?: string, options?: ApiResponseOptions,) {

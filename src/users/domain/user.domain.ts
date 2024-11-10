@@ -17,7 +17,7 @@ export class User {
   @ApiProperty({
     type: String,
     description: 'User email',
-    example: 'joe.doe@example.com',
+    example: 'joe.doe@joedoe.com',
   })
   @Expose()
   email: string | null
@@ -27,7 +27,7 @@ export class User {
 
   @ApiProperty({
     type: String,
-    description: 'User firtname',
+    description: 'User first',
     example: 'Joe',
   })
   @Expose()
