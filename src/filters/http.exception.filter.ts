@@ -28,10 +28,12 @@ export default class HttpExceptionFilter implements ExceptionFilter {
       path: request.url,
       statusCode: status,
       timestamp: new Date().toISOString(),
-      title: exception['response']['title'],
-      detail: exception['response']['detail'],
-      errors: exception['response']['errors'],
-      stack: stack && stack.length > 2 ? `${stack[0]}  ${stack[1]}` : stack,
+      result: {
+        title: exception['response']['title'],
+        detail: exception['response']['detail'],
+        errors: exception['response']['errors'],
+        stack: stack && stack.length > 2 ? `${stack[0]}  ${stack[1]}` : stack,
+      }
     })
   }
 }
