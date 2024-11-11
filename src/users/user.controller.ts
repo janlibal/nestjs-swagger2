@@ -5,6 +5,8 @@ import { ApiOkResponse, ApiOperation, ApiResponse } from '@nestjs/swagger'
 import { BadRequestError, ConflictError, InternalServer, NotFoundError } from 'src/decorators/all.errors.decorators'
 import { UserService } from './user.service'
 import { ApiGlobalOkResponse } from 'src/common/decorator/api.global.ok.decorator'
+import { BadRequestDto } from './dto/bad.request.dto'
+import { ApiGlobalErrorResponse } from 'src/common/decorator/api.global.error.decorator'
 
 
 
@@ -21,22 +23,30 @@ export class UserController {
   //@Serialize(LoginResponseDto)
   //@ApiResponse({ status: 201, type: LoginResponseDto })
   @ApiGlobalOkResponse(LoginResponseDto, 'object')
-  @BadRequestError('Bad Request', '/api/v1/auth/email/login', 'Something went wrong')
-  @ConflictError('Already Exists', '/api/v1/auth/email/login', 'Resource already exists')
-  @NotFoundError('Not Found', '/api/v1/auth/email/login', 'Resource not found')
-  @InternalServer('Internal Server Error', '/api/v1/auth/email/login', 'Server down')
+  @ApiGlobalErrorResponse(BadRequestDto, 'object')
+  
+
+  //@BadRequestError('Bad Request', '/api/v1/auth/email/login', 'Something went wrong', [errs])
+  //@ConflictError('Already Exists', '/api/v1/auth/email/login', 'Resource already exists', [errs])
+  //@NotFoundError('Not Found', '/api/v1/auth/email/login', 'Resource not found', [errs])
+  //@InternalServer('Internal Server Error', '/api/v1/auth/email/login', 'Server down', [errs])
   @Post('/login')
   public login(@Body() loginDto: AuthEmailLoginDto): Promise<LoginResponseDto>{
     return this.userService.validateLogin(loginDto)
   }
-  
 }
 
-const fakeUser = {
-  id: '123',
-  email: "joe.doe@example.com",
-  firstName: "Joe",
-  lastName: "Doe",
-  password: 'Password123!',
-  provider: "email",
-}
+const errs = [
+  {
+      "message": "Email must be in proper format"
+  },
+  {
+      "message": "Email must be a string"
+  },
+  {
+      "message": "Email cannot be empty"
+  },
+  {
+      "message": "Password cannot be empty"
+  }
+]

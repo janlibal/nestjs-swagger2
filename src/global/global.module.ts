@@ -5,7 +5,7 @@ import { NoteModule } from 'src/note/note.module';
 import { UserModule } from 'src/users/user.module';
 
 @Module({
-  imports: [AppModule, EmployeeModule, UserModule, NoteModule],
+  imports: [UserModule], //[AppModule, EmployeeModule, UserModule, NoteModule],
   controllers: [],
   providers: [],
 })

@@ -25,8 +25,10 @@ export function ApiErrorDecorator(
           path: path,
           statusCode: statusCode,
           timestamp: new Date().toISOString(),
-          title: title,
-          detail: detail,
+          result: {
+            title: title,
+            detail: detail,
+          }
         },
         type: getSchemaPath(ErrorDTO),
       },

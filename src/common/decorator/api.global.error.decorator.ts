@@ -1,20 +1,19 @@
-import { applyDecorators, Type } from '@nestjs/common';
-import { ApiExtraModels, ApiOkResponse, getSchemaPath } from '@nestjs/swagger';
-import { GlobalOkResponseDto } from '../dto/global.ok.response.dto';
+import { applyDecorators, HttpStatus, Type } from '@nestjs/common';
+import { ApiExtraModels, ApiOkResponse, ApiResponse, getSchemaPath } from '@nestjs/swagger';
+import { GlobalErrorResponseDto } from '../dto/global.error.response.dto';
 
-
-
-export const ApiGlobalOkResponse = <TModel extends Type<unknown>>(
+export const ApiGlobalErrorResponse = <TModel extends Type<unknown>>(
   model: TModel,
   type: 'array' | 'object',
 ) => {
   return applyDecorators(
-    ApiExtraModels(GlobalOkResponseDto, model),
-    ApiOkResponse({
+    ApiExtraModels(GlobalErrorResponseDto, model),
+    ApiResponse({
+      status: HttpStatus.BAD_REQUEST,
       schema: {
-        title: `ApiGlobalOkResponseOf${model.name}`,
+        title: `ApiGlobalErrorResponseOf${model.name}`,
         allOf: [
-          { $ref: getSchemaPath(GlobalOkResponseDto) },
+          { $ref: getSchemaPath(GlobalErrorResponseDto) },
           {
             properties: {
               result:
