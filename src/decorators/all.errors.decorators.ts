@@ -1,20 +1,30 @@
-import { HttpStatus } from '@nestjs/common';
+import { HttpStatus, Type } from '@nestjs/common';
 import { ApiResponseOptions } from '@nestjs/swagger';
-import { ApiErrorDecorator } from 'src/common/decorator/api.error.decorator';
 
+import { ApiGlobalErrorResponse } from 'src/common/decorator/api.global.error.decorator';
+import { ApiGlobalOkResponse } from 'src/common/decorator/api.global.ok.decorator';
 
-export function BadRequestError(title: string,path: string,detail: string,  description?: string, options?: ApiResponseOptions,) {
-  return ApiErrorDecorator(HttpStatus.BAD_REQUEST,title,path,detail, description,options,);
+export function OkResponse <TModel extends Type<unknown>>(model: TModel, type: 'array' | 'object', status:number, description?: string, options?: ApiResponseOptions,) {
+  return ApiGlobalOkResponse(model, type, status, description,options,);
 }
 
-export function ConflictError(title: string,path: string,detail: string,  description?: string, options?: ApiResponseOptions,) {
-  return ApiErrorDecorator(HttpStatus.CONFLICT,title,path,detail, description,options,);
+export function BadRequestErrorNew <TModel extends Type<unknown>>(model: TModel, type: 'array' | 'object', status:number, description?: string, options?: ApiResponseOptions,) {
+  return ApiGlobalErrorResponse(model, type, status, description,options,);
 }
 
-  export function NotFoundError(title: string,path: string,detail: string,   description?: string, options?: ApiResponseOptions,) {
-  return ApiErrorDecorator(HttpStatus.NOT_FOUND,title,path,detail, description,options,);
+export function UnauthorizedErrorNew <TModel extends Type<unknown>>(model: TModel, type: 'array' | 'object', status:number, description?: string, options?: ApiResponseOptions,) {
+  return ApiGlobalErrorResponse(model, type, status, description,options,);
 }
 
-  export function InternalServer(title: string,path: string,detail: string,  description?: string, options?: ApiResponseOptions,) {
-  return ApiErrorDecorator(HttpStatus.INTERNAL_SERVER_ERROR,title,path,detail, description,options,);
+export function ConflictErrorNew <TModel extends Type<unknown>>(model: TModel, type: 'array' | 'object', status:number, description?: string, options?: ApiResponseOptions,) {
+  return ApiGlobalErrorResponse(model, type, status, description,options,);
 }
+
+export function NotFoundErrorNew <TModel extends Type<unknown>>(model: TModel, type: 'array' | 'object', status:number, description?: string, options?: ApiResponseOptions,) {
+  return ApiGlobalErrorResponse(model, type, status, description,options,);
+}
+
+export function InternalServerNew <TModel extends Type<unknown>>(model: TModel, type: 'array' | 'object', status:number, description?: string, options?: ApiResponseOptions,) {
+  return ApiGlobalErrorResponse(model, type, status, description,options,);
+}
+

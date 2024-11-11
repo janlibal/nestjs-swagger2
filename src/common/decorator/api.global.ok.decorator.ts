@@ -1,16 +1,17 @@
 import { applyDecorators, Type } from '@nestjs/common';
-import { ApiExtraModels, ApiOkResponse, getSchemaPath } from '@nestjs/swagger';
+import { ApiExtraModels, ApiOkResponse, ApiResponse, ApiResponseOptions, getSchemaPath } from '@nestjs/swagger';
 import { GlobalOkResponseDto } from '../dto/global.ok.response.dto';
-
-
 
 export const ApiGlobalOkResponse = <TModel extends Type<unknown>>(
   model: TModel,
-  type: 'array' | 'object',
+  type: 'array' | 'object',status: number, description?: string, options?: ApiResponseOptions,
 ) => {
   return applyDecorators(
     ApiExtraModels(GlobalOkResponseDto, model),
-    ApiOkResponse({
+    ApiResponse({
+      ...options,
+      status: status,
+      description: description,
       schema: {
         title: `ApiGlobalOkResponseOf${model.name}`,
         allOf: [

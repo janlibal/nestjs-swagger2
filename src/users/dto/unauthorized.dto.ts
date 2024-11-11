@@ -5,12 +5,12 @@ import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 const e = [{ "message": "Email must be in proper format"},{"message": "Email must be a string"},{"message": "Email cannot be empty"},{"message": "Password cannot be empty"}]
 
-@ApiSchema({name: 'Bad Request Reponse'})
-export class BadRequestDto {
+@ApiSchema({name: 'Unauthorized'})
+export class UnauthorizedDto {
   
   @ApiProperty({
     description: 'Error title',
-    example: 'Bad Request',
+    example: 'Unauthorized',
   })
   @IsNotEmpty()
   @IsString()
@@ -18,18 +18,10 @@ export class BadRequestDto {
   
   @ApiProperty({
     description: 'Error detail',
-    example: 'Something went wrong',
+    example: 'Invalid username or password',
   })
   @Expose()
   detail: string
-  
-  @ApiProperty({
-    description: 'Errors',
-    example: e
-  })
-  @IsArray()
-  @IsNotEmpty()
-  errors: [];
   
 }
 
