@@ -5,7 +5,7 @@ import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 const e = [{ "message": "Email must be in proper format"},{"message": "Email must be a string"},{"message": "Email cannot be empty"},{"message": "Password cannot be empty"}]
 
-@ApiSchema({name: 'Bad Request Reponse'})
+@ApiSchema({name: 'Bad Request reponse'})
 export class BadRequestDto {
   
   @ApiProperty({

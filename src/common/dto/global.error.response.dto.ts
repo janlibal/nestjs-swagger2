@@ -1,7 +1,8 @@
 import { HttpStatus } from '@nestjs/common';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiSchema } from '@nestjs/swagger';
 import { IsArray, IsBoolean, IsDate, IsNotEmpty } from 'class-validator';
 
+@ApiSchema({name: 'Error base response'})
 export class GlobalErrorResponseDto<TData> {
   @ApiProperty({
     description: 'Result of the operation',
@@ -12,8 +13,8 @@ export class GlobalErrorResponseDto<TData> {
   success: boolean;
 
   @ApiProperty({
-    description: 'Path',
-    example: '/app',
+    description: 'API path',
+    example: '/api/v1',
     type: String,
   })
   path: String;

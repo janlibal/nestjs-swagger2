@@ -16,6 +16,10 @@ export function UnauthorizedErrorNew <TModel extends Type<unknown>>(model: TMode
   return ApiGlobalErrorResponse(model, type, status, description,options,);
 }
 
+export function UnprocessableEntityErrorNew <TModel extends Type<unknown>>(model: TModel, type: 'array' | 'object', status:number, description?: string, options?: ApiResponseOptions,) {
+  return ApiGlobalErrorResponse(model, type, status, description,options,);
+}
+
 export function ConflictErrorNew <TModel extends Type<unknown>>(model: TModel, type: 'array' | 'object', status:number, description?: string, options?: ApiResponseOptions,) {
   return ApiGlobalErrorResponse(model, type, status, description,options,);
 }

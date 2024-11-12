@@ -2,10 +2,11 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
 import { AuthEmailLoginDto } from './dto/auth.email.login.dto'
 import { LoginResponseDto } from './dto/login.response.dto'
 import { ApiOperation } from '@nestjs/swagger'
-import { BadRequestErrorNew, OkResponse, UnauthorizedErrorNew } from 'src/decorators/all.errors.decorators'
+import { BadRequestErrorNew, OkResponse, UnauthorizedErrorNew, UnprocessableEntityErrorNew } from 'src/decorators/all.errors.decorators'
 import { UserService } from './user.service'
 import { BadRequestDto } from './dto/bad.request.dto'
 import { UnauthorizedDto } from './dto/unauthorized.dto'
+import { UnprocessableDto } from './dto/unprocessable.dto'
 
 
 const path = '/users'
@@ -22,8 +23,12 @@ export class UserController {
   //@ApiResponse({ status: 201, type: LoginResponseDto })
   //@ApiGlobalOkResponse(LoginResponseDto, 'object',)
   @OkResponse(LoginResponseDto, 'object', HttpStatus.OK, 'Successful Operation')
-  @BadRequestErrorNew(BadRequestDto, 'object', HttpStatus.BAD_REQUEST, 'Validation errors')
+  @BadRequestErrorNew(BadRequestDto, 'object', HttpStatus.BAD_REQUEST, 'Bad request exception')
   @UnauthorizedErrorNew(UnauthorizedDto, 'object', HttpStatus.UNAUTHORIZED, 'Unauthorized exception')
+  @UnprocessableEntityErrorNew(UnprocessableDto, 'object', HttpStatus.UNPROCESSABLE_ENTITY, 'Unprocessable exception')
+
+
+  
   /*@ConflictErrorNew(BadRequestDto, 'object', HttpStatus.CONFLICT)
   @NotFoundErrorNew(BadRequestDto, 'object', HttpStatus.NOT_FOUND)
   @InternalServerNew(BadRequestDto, 'object', HttpStatus.INTERNAL_SERVER_ERROR)*/
