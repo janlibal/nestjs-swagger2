@@ -1,12 +1,14 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
+import { Body, Controller, HttpCode, HttpStatus, Post, Request } from '@nestjs/common'
 import { AuthEmailLoginDto } from './dto/auth.email.login.dto'
 import { LoginResponseDto } from './dto/login.response.dto'
-import { ApiOperation } from '@nestjs/swagger'
-import { BadRequestErrorNew, OkResponse, UnauthorizedErrorNew, UnprocessableEntityErrorNew } from 'src/decorators/all.errors.decorators'
+import { ApiOperation, ApiResponse, ApiSchema } from '@nestjs/swagger'
+import { BadRequestErrorNew, ConflictErrorNew, OkResponse, UnauthorizedErrorNew, UnprocessableEntityErrorNew } from 'src/decorators/all.errors.decorators'
 import { UserService } from './user.service'
 import { BadRequestDto } from './dto/bad.request.dto'
 import { UnauthorizedDto } from './dto/unauthorized.dto'
 import { UnprocessableDto } from './dto/unprocessable.dto'
+import { AuthRegisterLoginDto } from './dto/auth.register.login.dto'
+import { ConflictDto } from './dto/conflict.dto'
 
 
 const path = '/users'
@@ -42,5 +44,32 @@ export class UserController {
   @Post('/login')
   public login(@Body() loginDto: AuthEmailLoginDto): Promise<LoginResponseDto>{
     return this.userService.validateLogin(loginDto)
+  }
+
+  @Post('/register')
+  @ApiOperation({
+    summary: 'Registers a new user',
+    description: 'Returns no content when registration succeeds',
+  })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiResponse({status: 204, description: 'Returns no content'})
+  @BadRequestErrorNew(BadRequestDto, 'object', HttpStatus.BAD_REQUEST, 'Bad request exception')
+  @ConflictErrorNew(ConflictDto, 'object', HttpStatus.CONFLICT, 'Conflict exception')
+  @UnprocessableEntityErrorNew(UnprocessableDto, 'object', HttpStatus.UNPROCESSABLE_ENTITY, 'Unprocessable exception')
+  async register(@Body() createUserDto: AuthRegisterLoginDto): Promise<void> {
+    return this.userService.register(createUserDto)
+  }
+
+  @Post('/logout')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiResponse({status: 204, description: 'Returns no content'})
+  public async logout(@Request() request): Promise<void> {
+    return
+  }
+
+  @Post('/show')
+  public show() {
+    const arrayOfObjects = [{ "role": "Admin" }, { "role": "User" }, { "role": "Guest" }]
+    return this.userService.display(arrayOfObjects)
   }
 }
