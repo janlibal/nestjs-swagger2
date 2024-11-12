@@ -20,7 +20,7 @@ export class Status {
     type: String,
     example: 'active',
     description: 'Status description active/inactive',
-    default: 2
+    default: 'active'
   })
   @Expose()
   name?: string
