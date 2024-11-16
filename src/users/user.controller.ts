@@ -1,14 +1,34 @@
-import { Body, Get,  Controller, HttpCode, HttpStatus, Post, Request } from '@nestjs/common'
-import { AuthEmailLoginDto } from './dto/auth.email.login.dto'
+import {
+  Body,
+  Get,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+} from '@nestjs/common'
+
 import { LoginResponseDto } from './dto/login.response.dto'
 import { ApiOperation, ApiResponse } from '@nestjs/swagger'
-import { BadRequestError, ConflictError, InternalError, SuccessResponse, UnauthorizedError, UnprocessableEntityError } from 'src/decorators/all.errors.decorators'
+import {
+  BadRequestError,
+  ConflictError,
+  InternalError,
+  SuccessResponse,
+  UnauthorizedError,
+  UnprocessableEntityError,
+} from 'src/decorators/all.errors.decorators'
 import { UserService } from './user.service'
 import { AuthRegisterLoginDto } from './dto/auth.register.login.dto'
-import {  badRequestSignInErrors, conflictErrors, loginPath, mePath, registerPath, unprocessableErrors } from './constants/decorators.constants'
+import {
+  badRequestSignInErrors,
+  conflictErrors,
+  loginPath,
+  mePath,
+  registerPath,
+  unprocessableErrors,
+} from './constants/decorators.constants'
 import { User } from './domain/user.domain'
 import { NullableType } from 'src/utils/types/nullable.type'
-
 
 const path = '/users'
 @Controller(path)
@@ -34,12 +54,34 @@ export class UserController {
   @Post('/login')
   @HttpCode(HttpStatus.OK)
   @SuccessResponse(LoginResponseDto, 'object', loginPath, HttpStatus.OK)
-  @BadRequestError('Bad Request', loginPath, 'Something went wrong', badRequestSignInErrors, 'Bad request exception')
-  @UnauthorizedError('Unauthorized', loginPath, 'Invalid email or password', 'Unauthorized exception')
-  @UnprocessableEntityError('Unprocessabble Error', loginPath, 'Unprocessable entity error', unprocessableErrors, 'Unprocessbale entity exception')
-  @InternalError('Internal Server Error', loginPath, 'Fatal error', 'Server down')
-  public login(@Body() loginDto: AuthEmailLoginDto): Promise<LoginResponseDto>{
-    return this.userService.validateLogin(loginDto)
+  @BadRequestError(
+    'Bad Request',
+    loginPath,
+    'Something went wrong',
+    badRequestSignInErrors,
+    'Bad request exception',
+  )
+  @UnauthorizedError(
+    'Unauthorized',
+    loginPath,
+    'Invalid email or password',
+    'Unauthorized exception',
+  )
+  @UnprocessableEntityError(
+    'Unprocessabble Error',
+    loginPath,
+    'Unprocessable entity error',
+    unprocessableErrors,
+    'Unprocessbale entity exception',
+  )
+  @InternalError(
+    'Internal Server Error',
+    loginPath,
+    'Fatal error',
+    'Server down',
+  )
+  public login(): Promise<LoginResponseDto> {
+    return this.userService.validateLogin()
   }
 
   @Post('/register')
@@ -52,10 +94,21 @@ export class UserController {
   @ConflictErrorNew(ConflictDto, 'object', HttpStatus.CONFLICT, 'Conflict exception')
   @UnprocessableEntityErrorNew(UnprocessableDto, 'object', HttpStatus.UNPROCESSABLE_ENTITY, 'Unprocessable exception')*/
   @HttpCode(HttpStatus.NO_CONTENT)
-  @ApiResponse({status: 204, description: 'Success, returns no content'})
-  @BadRequestError('Bad Request', registerPath, 'Something went wrong', badRequestSignInErrors, 'Bad request exception')
-  @ConflictError('Conflict', registerPath, 'Resource already exists', conflictErrors, 'Conflict exception')
-  
+  @ApiResponse({ status: 204, description: 'Success, returns no content' })
+  @BadRequestError(
+    'Bad Request',
+    registerPath,
+    'Something went wrong',
+    badRequestSignInErrors,
+    'Bad request exception',
+  )
+  @ConflictError(
+    'Conflict',
+    registerPath,
+    'Resource already exists',
+    conflictErrors,
+    'Conflict exception',
+  )
   async register(@Body() createUserDto: AuthRegisterLoginDto): Promise<void> {
     return this.userService.register(createUserDto)
   }
@@ -66,9 +119,14 @@ export class UserController {
     description: 'Returns no content when logout succeeds',
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  @ApiResponse({status: 204, description: 'Success, returns no content'})
-  @InternalError('Internal Server Error', registerPath, 'Fatal error', 'Server down')
-  public async logout(@Request() request): Promise<void> {
+  @ApiResponse({ status: 204, description: 'Success, returns no content' })
+  @InternalError(
+    'Internal Server Error',
+    registerPath,
+    'Fatal error',
+    'Server down',
+  )
+  public async logout(): Promise<void> {
     return
   }
 
@@ -81,7 +139,7 @@ export class UserController {
   })
   @InternalError('Internal Server Error', mePath, 'Fatal error', 'Server down')
   @SuccessResponse(User, 'object', mePath, HttpStatus.OK)
-  public me(@Request() request): Promise<NullableType<User>> {
+  public me(): Promise<NullableType<User>> {
     return this.userService.me()
   }
 

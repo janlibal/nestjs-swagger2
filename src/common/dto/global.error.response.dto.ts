@@ -1,23 +1,23 @@
-import { HttpStatus } from '@nestjs/common';
-import { ApiProperty, ApiSchema } from '@nestjs/swagger';
-import { IsArray, IsBoolean, IsDate, IsNotEmpty } from 'class-validator';
+import { HttpStatus } from '@nestjs/common'
+import { ApiProperty, ApiSchema } from '@nestjs/swagger'
+import { IsBoolean, IsDate, IsNotEmpty } from 'class-validator'
 
-@ApiSchema({name: 'Error base response'})
-export class GlobalErrorResponseDto<TData> {
+@ApiSchema({ name: 'Error base response' })
+export class GlobalErrorResponseDto {
   @ApiProperty({
     description: 'Result of the operation',
     example: false,
   })
   @IsBoolean()
   @IsNotEmpty()
-  success: boolean;
+  success: boolean
 
   @ApiProperty({
     description: 'API path',
     example: '/api/v1',
     type: String,
   })
-  path: String;
+  path: string
 
   @ApiProperty({
     description: 'Status code',
@@ -25,7 +25,7 @@ export class GlobalErrorResponseDto<TData> {
     type: Number,
   })
   @IsDate()
-  statusCode: Number;
+  statusCode: number
 
   @ApiProperty({
     description: 'Timestamp',
@@ -33,13 +33,11 @@ export class GlobalErrorResponseDto<TData> {
     type: Date,
   })
   @IsDate()
-  timestamp: String;
+  timestamp: string
 
   /*@ApiProperty({
     description: 'Result',
   })
   @IsNotEmpty()
   result: TData | TData[];*/
-
- 
 }

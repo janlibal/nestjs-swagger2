@@ -1,7 +1,6 @@
 import { ApiProperty, ApiSchema } from '@nestjs/swagger'
 import {
   IsDefined,
-  IsEmail,
   IsNotEmpty,
   IsString,
   Matches,
@@ -11,23 +10,38 @@ import {
 import { Transform } from 'class-transformer'
 import { lowerCaseTransformer } from 'src/utils/transformers/lower.case.transformer'
 
-@ApiSchema({name: 'Registration mandatory fields'})
+@ApiSchema({ name: 'Registration mandatory fields' })
 export class AuthRegisterLoginDto {
-  @ApiProperty({ description: 'User firstname', example: 'Joe', default: 'Joe', type: String })
+  @ApiProperty({
+    description: 'User firstname',
+    example: 'Joe',
+    default: 'Joe',
+    type: String,
+  })
   @IsNotEmpty({ message: 'Firstname cannot be empty' })
   @IsDefined({ message: 'Firstname has to be defined' })
   @IsString({ message: 'Firstname must be a string' })
   @MinLength(1, { message: 'Firstname must be longer than 1 char' })
   readonly firstName: string
 
-  @ApiProperty({ description: 'User lastname', example: 'Doe', default: 'Doe', type: String })
+  @ApiProperty({
+    description: 'User lastname',
+    example: 'Doe',
+    default: 'Doe',
+    type: String,
+  })
   @IsNotEmpty({ message: 'Lastname cannot be empty' })
   @IsDefined({ message: 'Lastname has to be defined' })
   @IsString({ message: 'Lastname must be a string' })
   @MinLength(1, { message: 'Lastname must be longer than 1 char' })
   readonly lastName: string
 
-  @ApiProperty({ description: 'User email', example: 'joe.doe@joedoe.com', default: 'joe.doe@doedoe.com', type: String })
+  @ApiProperty({
+    description: 'User email',
+    example: 'joe.doe@joedoe.com',
+    default: 'joe.doe@doedoe.com',
+    type: String,
+  })
   @Transform(lowerCaseTransformer)
   @IsNotEmpty({ message: 'Email cannot be empty' })
   @IsString({ message: 'Email must be a string' })
@@ -36,7 +50,11 @@ export class AuthRegisterLoginDto {
   })
   readonly email: string
 
-  @ApiProperty({description: 'User password', example: 'Password123!', default: 'Password123!'})
+  @ApiProperty({
+    description: 'User password',
+    example: 'Password123!',
+    default: 'Password123!',
+  })
   @IsDefined({ message: 'Password has to be defined' })
   @IsString({ message: 'Password must be a string' })
   @MinLength(6, { message: 'Password must contain at least 6 characters' })

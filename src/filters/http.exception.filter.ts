@@ -23,7 +23,7 @@ export default class HttpExceptionFilter implements ExceptionFilter {
       ? exception.stack.split('\n')
       : exception.stack
 
-    const r = response.status(status).json({
+    response.status(status).json({
       status: false,
       path: request.url,
       statusCode: status,
@@ -33,7 +33,7 @@ export default class HttpExceptionFilter implements ExceptionFilter {
         detail: exception['response']['detail'],
         errors: exception['response']['errors'],
         stack: stack && stack.length > 2 ? `${stack[0]}  ${stack[1]}` : stack,
-      }
+      },
     })
   }
 }

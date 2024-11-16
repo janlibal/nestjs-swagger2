@@ -3,12 +3,9 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
-  HttpException,
-  HttpStatus,
 } from '@nestjs/common'
-import { Observable, throwError } from 'rxjs'
-import { catchError, map } from 'rxjs/operators'
-import HttpExceptionFilter from 'src/filters/http.exception.filter'
+import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
 
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {

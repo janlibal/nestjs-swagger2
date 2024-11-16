@@ -1,15 +1,14 @@
-import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger'
 import { Exclude, Expose } from 'class-transformer'
 import { isUUID } from 'class-validator'
 import { Role } from 'src/roles/domain/role.domain'
 import { Status } from 'src/statuses/domain/status.domain'
 
-
 export class User {
   @ApiProperty({
     type: isUUID,
     description: 'Id is UUID',
-    example: '550e8400-e29b-41d4-a716-44665544000'
+    example: '550e8400-e29b-41d4-a716-44665544000',
   })
   @Exclude()
   id?: string //= uuid() //number | string
