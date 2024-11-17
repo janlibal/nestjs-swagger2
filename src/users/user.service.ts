@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { LoginResponseDto } from './dto/login.response.dto'
 import UnauthorizedError from 'src/exceptions/unauthorized.exception'
 import { AuthProvidersEnum } from './auth.providers.enum'
@@ -12,7 +12,11 @@ import { User } from './domain/user.domain'
 
 @Injectable()
 export class UserService {
+  private readonly logger = new Logger(UserService.name)
+
+  
   async validateLogin(): Promise<LoginResponseDto> {
+    this.logger.log('User validation started')
     //const user = null
     const user = {
       token: 'token123',
@@ -22,23 +26,29 @@ export class UserService {
     }
 
     if (!user) {
+      this.logger.log('Invalid email or password')
       throw new UnauthorizedError('Invalid email or password')
     }
 
     if (user.user.provider !== AuthProvidersEnum.email) {
+      this.logger.log(`hasToLoginViaProvider:${user.user.provider}`)
       throw new UnprocessableError(
         `hasToLoginViaProvider:${user.user.provider}`,
       )
     }
 
     if (!user.user.password) {
+      this.logger.log('missing passowrd')
       throw new UnprocessableError('missingPassword')
     }
+
+    this.logger.log('Login successfully finished')
 
     return user
   }
 
   async register(dto: AuthRegisterLoginDto): Promise<void> {
+    this.logger.log('New user registration started')
     const user = {
       id: '123',
       email: dto.email,
@@ -55,6 +65,7 @@ export class UserService {
         .map(String)
         .includes(String(user.role))
       if (!roleObject) {
+        this.logger.log('roleIdMissing')
         throw new UnprocessableError(`roleIdMissing`)
       }
     }
@@ -64,18 +75,24 @@ export class UserService {
         .map(String)
         .includes(String(user.status))
       if (!statusObject) {
+        this.logger.log('statusIdMissing')
         throw new UnprocessableError(`statusIdMissing`)
       }
     }
 
     const userObject = null //{email: 'fake@email.com'}
     if (userObject) {
+      this.logger.log(`${userObject.email} already exists`)
       throw new ResourceExistsError(userObject.email)
     }
+    this.logger.log('Registration successfully finished')
   }
 
   async me(): Promise<NullableType<User>> {
-    return fakeUser
+    this.logger.log('Retrieving user data')
+    const data = fakeUser
+    this.logger.log('User data retrieval finished')
+    return data
   }
 
   display(array: object[]) {

@@ -1,14 +1,19 @@
 import { NestFactory } from '@nestjs/core'
 import { GlobalModule } from './global/global.module'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { ValidationPipe } from '@nestjs/common'
+import { Logger as LoggerNest, ValidationPipe } from '@nestjs/common'
 import validationOptions from './utils/validation.options'
 import { ResponseInterceptor } from './interceptors/response.interceptor'
 import HttpExceptionFilter from './filters/http.exception.filter'
 import AnyExceptionFilter from './filters/any.exception.filter'
+import { Logger } from 'nestjs-pino'
 
 async function bootstrap() {
   const app = await NestFactory.create(GlobalModule)
+
+  app.useLogger(app.get(Logger))
+
+  const logger = new LoggerNest('Bootstrap')
 
   app.useGlobalPipes(new ValidationPipe(validationOptions))
 
@@ -27,7 +32,8 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document)
 
   await app.listen(3000, () => {
-    console.log('App running on  3000')
+    //console.log('App running on  3000')
+    logger.log('App started running on 3000')
   })
 }
 bootstrap()
