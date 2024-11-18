@@ -7,10 +7,14 @@ import { ResponseInterceptor } from './interceptors/response.interceptor'
 import HttpExceptionFilter from './filters/http.exception.filter'
 import AnyExceptionFilter from './filters/any.exception.filter'
 import { Logger, LoggerErrorInterceptor, PinoLogger } from 'nestjs-pino'
+import { ConfigService } from '@nestjs/config'
+import { AllConfigType } from './global/config/config.type'
 
 
 async function bootstrap() {
   const app = await NestFactory.create(GlobalModule)
+
+  const configService = app.get(ConfigService<AllConfigType>)
 
   //app.useLogger(app.get(PinoLogger))
   app.useLogger(app.get(Logger))
@@ -36,9 +40,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api', app, document)
 
-  await app.listen(3000, () => {
-    //console.log('App running on  3000')
-    logger.info('Server started listening on 3000', 'Main')
+  const port = configService.getOrThrow('app.port', { infer: true })
+
+  await app.listen(port, () => {
+    logger.info(`Server started listening on ${port}`, 'Main')
   })
 }
 bootstrap()
