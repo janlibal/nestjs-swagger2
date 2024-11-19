@@ -20,7 +20,7 @@ async function bootstrap() {
   app.useLogger(app.get(Logger))
 
   const logger = await app.resolve(PinoLogger)
-
+  
   app.useGlobalPipes(new ValidationPipe(validationOptions))
 
   app.useGlobalFilters(new AnyExceptionFilter(), new HttpExceptionFilter())

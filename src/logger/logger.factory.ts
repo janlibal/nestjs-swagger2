@@ -24,6 +24,7 @@ async function loggerFactory(configService: ConfigService<AllConfigType>,): Prom
     const isDebug = configService.getOrThrow('app.debug', { infer: true }) //false
 
     const pinoHttpOptions: Options = {
+        name: 'Nestjs',
         level: logLevel,
         genReqId: isDebug ? genReqId : undefined,
         serializers: isDebug
@@ -37,6 +38,7 @@ async function loggerFactory(configService: ConfigService<AllConfigType>,): Prom
         customSuccessMessage,
         customReceivedMessage,
         customErrorMessage,
+        timestamp: () => `,"timestamp":"${new Date(Date.now()).toISOString()}"`,
         redact: {
           paths: loggingRedactPaths,
           censor: '**GDPR/CCPA COMPLIANT**',
