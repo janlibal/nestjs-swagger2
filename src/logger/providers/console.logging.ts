@@ -30,6 +30,15 @@ export function consoleLoggingConfig(): Options {
                 mkdir: true,
               },
             },
+            {
+              target: '@youngkiu/pino-slack-webhook',
+              options: {
+                webhookUrl: 'URL',
+                channel: '#logs',
+                username: 'janlibal',
+                icon_emoji: ':ghost:'
+              }
+            }
           ],
       },
     }
