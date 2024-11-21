@@ -4,8 +4,7 @@ import {
   Controller,
   HttpCode,
   HttpStatus,
-  Post,
-  UseGuards,
+  Post
 } from '@nestjs/common'
 
 import { LoginResponseDto } from './dto/login.response.dto'
@@ -31,7 +30,6 @@ import {
 import { User } from './domain/user.domain'
 import { NullableType } from 'src/utils/types/nullable.type'
 import { AuthEmailLoginDto } from './dto/auth.email.login.dto'
-import { AccessTokenGuard } from 'src/guards/acccess.token.guard'
 
 const path = '/users'
 @Controller(path)
@@ -133,8 +131,7 @@ export class UserController {
     return
   }
 
-   @Get('me')
-  @UseGuards(AccessTokenGuard)
+  @Get('me')
   @HttpCode(HttpStatus.OK)
   //@Serialize(User)
   @ApiOperation({
