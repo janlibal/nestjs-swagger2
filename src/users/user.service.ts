@@ -16,7 +16,7 @@ export class UserService {
   async validateLogin(): Promise<LoginResponseDto> {
     //const user = null
     const user = {
-      token: 'token123',
+      token: 'gEaZDiEjxldE1YIH0DGLcKTv5boV3siXxWQoxpY72e7BxX24bhWTchDUJf2687uL',
       refreshToken: 'refreshToken',
       tokenExpires: 20241232,
       user: fakeUser,

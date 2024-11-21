@@ -5,6 +5,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  UseGuards,
 } from '@nestjs/common'
 
 import { LoginResponseDto } from './dto/login.response.dto'
@@ -29,6 +30,8 @@ import {
 } from './constants/decorators.constants'
 import { User } from './domain/user.domain'
 import { NullableType } from 'src/utils/types/nullable.type'
+import { AuthEmailLoginDto } from './dto/auth.email.login.dto'
+import { AccessTokenGuard } from 'src/guards/acccess.token.guard'
 
 const path = '/users'
 @Controller(path)
@@ -80,7 +83,7 @@ export class UserController {
     'Fatal error',
     'Server down',
   )
-  public login(): Promise<LoginResponseDto> {
+  public login(@Body() dto: AuthEmailLoginDto): Promise<LoginResponseDto> {
     return this.userService.validateLogin()
   }
 
@@ -130,7 +133,8 @@ export class UserController {
     return
   }
 
-  @Get('me')
+   @Get('me')
+  @UseGuards(AccessTokenGuard)
   @HttpCode(HttpStatus.OK)
   //@Serialize(User)
   @ApiOperation({
